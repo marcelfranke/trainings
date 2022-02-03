@@ -1,0 +1,26 @@
+{
+	"name": "MetadataDrivenCopyTask_SouthridgeCatalog_SourceDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SouthridgeCatalogDB",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"cw_collectionName": {
+				"type": "String"
+			}
+		},
+		"folder": {
+			"name": "SouthridgeCatalog"
+		},
+		"annotations": [],
+		"type": "CosmosDbSqlApiCollection",
+		"schema": {},
+		"typeProperties": {
+			"collectionName": {
+				"value": "@dataset().cw_collectionName",
+				"type": "Expression"
+			}
+		}
+	}
+}

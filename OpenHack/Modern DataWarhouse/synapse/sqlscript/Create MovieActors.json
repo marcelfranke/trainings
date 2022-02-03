@@ -1,0 +1,20 @@
+{
+	"name": "Create MovieActors",
+	"properties": {
+		"folder": {
+			"name": "SQL Serverless"
+		},
+		"content": {
+			"query": "DROP EXTERNAL TABLE MovieActors;\nCREATE EXTERNAL TABLE MovieActors (\n\t[MovieActorId] nvarchar(256),\n\t[MovieId] nvarchar(256),\n\t[ActorId] nvarchar(256),\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'MovieActors',\n\tDATA_SOURCE = [silver_southridgedatalake01_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.MovieActors\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,10 @@
+{
+	"name": "SouthridgeKeys",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvSouthridgeKeys.vault.azure.net/"
+		}
+	}
+}

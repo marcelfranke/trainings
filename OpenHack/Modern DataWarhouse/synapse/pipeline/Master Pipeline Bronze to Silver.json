@@ -1,0 +1,64 @@
+{
+	"name": "Master Pipeline Bronze to Silver",
+	"properties": {
+		"activities": [
+			{
+				"name": "Execute Southridge",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Load Southridge",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute FourthCoffee",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute Southridge",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Load FourthCoffeee",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			},
+			{
+				"name": "Execute VanArsdel",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Execute FourthCoffee",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "Load VanArsdel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"folder": {
+			"name": "LakeDatabase"
+		},
+		"annotations": []
+	}
+}

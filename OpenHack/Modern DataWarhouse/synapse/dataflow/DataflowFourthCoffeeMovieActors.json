@@ -1,0 +1,35 @@
+{
+	"name": "DataflowFourthCoffeeMovieActors",
+	"properties": {
+		"folder": {
+			"name": "FourthCoffee"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "MovieActors"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "MovieActorsSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddDataSourceId"
+				}
+			],
+			"script": "source(output(\n\t\tMovieActorID as string,\n\t\tMovieID as string,\n\t\tActorID as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'delimited',\n\tfileSystem: 'bronze',\n\tfolderPath: 'FourthCoffee/Rentals',\n\tfileName: 'MovieActors.csv',\n\tcolumnDelimiter: ',',\n\tescapeChar: '\\\\',\n\tquoteChar: '\\\"',\n\tcolumnNamesAsHeader: true) ~> MovieActors\nMovieActors derive(DataSourceId = 3) ~> AddDataSourceId\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'MovieActors',\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tMovieActorId = MovieActorID,\n\t\tMovieId = MovieID,\n\t\tActorId = ActorID,\n\t\tDataSourceId\n\t)) ~> MovieActorsSink"
+		}
+	}
+}

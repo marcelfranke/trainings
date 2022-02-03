@@ -1,0 +1,35 @@
+{
+	"name": "DataflowVanArsdelActors",
+	"properties": {
+		"folder": {
+			"name": "VanArsdel"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Actors"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "ActorsSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddDataSourceId"
+				}
+			],
+			"script": "source(output(\n\t\tActorID as string,\n\t\tActorName as string,\n\t\tGender as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tfileSystem: 'bronze',\n\tfolderPath: 'VanArsdel',\n\tfileName: 'dbo_Actors.parquet') ~> Actors\nActors derive(DataSourceId = 2) ~> AddDataSourceId\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'Actors',\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tActorId = ActorID,\n\t\tName = ActorName,\n\t\tDataSourceId\n\t)) ~> ActorsSink"
+		}
+	}
+}

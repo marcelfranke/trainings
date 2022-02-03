@@ -1,0 +1,45 @@
+{
+	"name": "DataflowSouthridgeDVDSales",
+	"properties": {
+		"folder": {
+			"name": "Southridge"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Orders"
+				},
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "OrderDetails"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DVDSales"
+				}
+			],
+			"transformations": [
+				{
+					"name": "JoinOrderDetails"
+				},
+				{
+					"name": "AddDataSourceId"
+				}
+			],
+			"script": "source(output(\n\t\tOrderID as string,\n\t\tCustomerID as string,\n\t\tOrderDate as date,\n\t\tShipDate as date,\n\t\tTotalCost as decimal(19,4),\n\t\tCreatedDate as date,\n\t\tUpdatedDate as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tfileSystem: 'bronze',\n\tfolderPath: 'CloudSales',\n\tfileName: 'dbo_Orders.parquet',\n\tcompressionCodec: 'snappy') ~> Orders\nsource(output(\n\t\tOrderDetailID as string,\n\t\tOrderID as string,\n\t\tMovieID as string,\n\t\tQuantity as integer,\n\t\tUnitCost as decimal(19,4),\n\t\tLineNumber as integer,\n\t\tCreatedDate as date,\n\t\tUpdatedDate as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tfileSystem: 'bronze',\n\tfolderPath: 'CloudSales',\n\tfileName: 'dbo_OrderDetails.parquet',\n\tcompressionCodec: 'snappy') ~> OrderDetails\nOrders, OrderDetails join(Orders@OrderID == OrderDetails@OrderID,\n\tjoinType:'inner',\n\tbroadcast: 'auto')~> JoinOrderDetails\nJoinOrderDetails derive(DataSourceId = 1) ~> AddDataSourceId\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'DVDSales',\n\ttruncate:true,\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tOrderId = Orders@OrderID,\n\t\tOrderDetailId = OrderDetailID,\n\t\tMovieId = MovieID,\n\t\tQuantity,\n\t\tUnitCost,\n\t\tLineNumber,\n\t\tCustomerId = CustomerID,\n\t\tOrderDate,\n\t\tShipDate,\n\t\tTotalCost,\n\t\tCreatedDate = Orders@CreatedDate,\n\t\tUpdatedDate = Orders@UpdatedDate,\n\t\tDataSourceId\n\t)) ~> DVDSales"
+		}
+	}
+}

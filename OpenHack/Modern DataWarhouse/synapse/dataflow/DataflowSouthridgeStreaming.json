@@ -1,0 +1,35 @@
+{
+	"name": "DataflowSouthridgeStreaming",
+	"properties": {
+		"folder": {
+			"name": "Southridge"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "StreamingTransactions"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Streaming"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddDataSourceId"
+				}
+			],
+			"script": "source(output(\n\t\tTransactionID as string,\n\t\tCustomerID as string,\n\t\tMovieID as string,\n\t\tStreamStart as timestamp,\n\t\tStreamEnd as timestamp,\n\t\tCreatedDate as date,\n\t\tUpdatedDate as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tfileSystem: 'bronze',\n\tfolderPath: 'CloudStreaming',\n\tfileName: 'dbo_Transactions.parquet',\n\tcompressionCodec: 'snappy') ~> StreamingTransactions\nStreamingTransactions derive(DataSourceId = 1) ~> AddDataSourceId\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'Streaming',\n\ttruncate:true,\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tTransactionId = TransactionID,\n\t\tCustomerId = CustomerID,\n\t\tMovieId = MovieID,\n\t\tStreamStart,\n\t\tStreamEnd,\n\t\tCreatedDate,\n\t\tUpdatedDate,\n\t\tDataSourceId\n\t)) ~> Streaming"
+		}
+	}
+}

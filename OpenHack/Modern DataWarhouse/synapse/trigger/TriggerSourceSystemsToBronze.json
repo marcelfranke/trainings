@@ -1,0 +1,31 @@
+{
+	"name": "TriggerSourceSystemsToBronze",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipeline": {
+			"pipelineReference": {
+				"referenceName": "Master Pipeline Sources to Bronze",
+				"type": "PipelineReference"
+			},
+			"parameters": {
+				"ControlTableName": "dbo.ControlTable",
+				"NumberOfConcurrentTasks": 20,
+				"NumberOfObjectsReturnedFromLookupActivity": 5000
+			}
+		},
+		"type": "TumblingWindowTrigger",
+		"typeProperties": {
+			"frequency": "Hour",
+			"interval": 12,
+			"startTime": "2022-02-01T01:00:00Z",
+			"endTime": "2022-02-05T11:36:00Z",
+			"delay": "00:00:00",
+			"maxConcurrency": 50,
+			"retryPolicy": {
+				"intervalInSeconds": 30
+			},
+			"dependsOn": []
+		}
+	}
+}

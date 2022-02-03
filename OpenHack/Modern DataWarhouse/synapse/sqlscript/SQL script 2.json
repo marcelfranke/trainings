@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 2",
+	"properties": {
+		"content": {
+			"query": "SELECT TOP 10 *\nFROM OPENROWSET(\n    BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/Customers',\n    FORMAT = 'delta') as rows;\n\nSELECT count(*)\nFROM OPENROWSET(\n    BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/Customers',\n    FORMAT = 'delta') as rows;\n\n\nSELECT count(*)\nFROM OPENROWSET(\n    BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/Actors',\n    FORMAT = 'delta') as rows\n\nSELECT count(*)\nFROM OPENROWSET(\n    BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/Movies',\n    FORMAT = 'delta') as rows\n\nSELECT *\nFROM OPENROWSET(\n    BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/MovieActors',\n    FORMAT = 'delta') as rows",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

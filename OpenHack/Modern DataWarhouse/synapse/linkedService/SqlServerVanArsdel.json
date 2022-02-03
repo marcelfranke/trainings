@@ -1,0 +1,23 @@
+{
+	"name": "SqlServerVanArsdel",
+	"properties": {
+		"annotations": [],
+		"type": "SqlServer",
+		"typeProperties": {
+			"connectionString": "Integrated Security=True;Data Source=VanArsdelLtd;Initial Catalog=OnPremRentals",
+			"userName": "southridge",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "SouthridgeKeys",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "CloudDBLogin"
+			}
+		},
+		"connectVia": {
+			"referenceName": "IntegrationRuntimeVanArsdel",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

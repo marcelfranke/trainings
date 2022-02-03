@@ -1,0 +1,19 @@
+{
+	"name": "MetadataDrivenCopyTask_FourthCoffee_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SynapseMetadatabase",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "FourthCoffee"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ControlTable"
+		}
+	}
+}

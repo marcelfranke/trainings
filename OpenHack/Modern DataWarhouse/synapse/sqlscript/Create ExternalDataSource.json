@@ -1,0 +1,20 @@
+{
+	"name": "Create ExternalDataSource",
+	"properties": {
+		"folder": {
+			"name": "SQL Serverless"
+		},
+		"content": {
+			"query": "IF NOT EXISTS (SELECT * FROM sys.external_data_sources WHERE name = 'silver_southridgedatalake01_dfs_core_windows_net') \n\tCREATE EXTERNAL DATA SOURCE [silver_southridgedatalake01_dfs_core_windows_net] \n\tWITH (\n\t\tLOCATION = 'abfss://silver@southridgedatalake01.dfs.core.windows.net' \n\t)\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

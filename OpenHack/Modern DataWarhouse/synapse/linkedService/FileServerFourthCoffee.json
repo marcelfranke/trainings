@@ -1,0 +1,23 @@
+{
+	"name": "FileServerFourthCoffee",
+	"properties": {
+		"annotations": [],
+		"type": "FileServer",
+		"typeProperties": {
+			"host": "C:\\\\",
+			"userId": "local\\southridge",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "SouthridgeKeys",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "CloudDBLogin"
+			}
+		},
+		"connectVia": {
+			"referenceName": "IntegrationRuntimeFourthCoffee",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

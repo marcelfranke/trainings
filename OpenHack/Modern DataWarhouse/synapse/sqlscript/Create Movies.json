@@ -1,0 +1,20 @@
+{
+	"name": "Create Movies",
+	"properties": {
+		"folder": {
+			"name": "SQL Serverless"
+		},
+		"content": {
+			"query": "DROP EXTERNAL TABLE Movies;\nCREATE EXTERNAL TABLE Movies (\n\t[MovieId] nvarchar(256),\n\t[Title] nvarchar(256),\n\t[Genre] nvarchar(256),\n\t[Rating] nvarchar(256),\n\t[ReleaseYear] int,\n\t[Runtime] int,\n\t[AvailabilityDate] nvarchar(256),\n\t[StreamingAvailabilityDate] nvarchar(256),\n\t[Tier] int,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Movies',\n\tDATA_SOURCE = [silver_southridgedatalake01_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Movies\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "Create Customers",
+	"properties": {
+		"folder": {
+			"name": "SQL Serverless"
+		},
+		"content": {
+			"query": "DROP EXTERNAL TABLE dbo.Customers;\nCREATE EXTERNAL TABLE dbo.Customers (\n\t[CustomerID] nvarchar(256),\n\t[LastName] nvarchar(256),\n\t[FirstName] nvarchar(256),\n\t[PhoneNumber] nvarchar(256),\n\t[CreatedDate] date,\n\t[UpdatedDate] date,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Customers',\n\tDATA_SOURCE = [silver_southridgedatalake01_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Customers\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

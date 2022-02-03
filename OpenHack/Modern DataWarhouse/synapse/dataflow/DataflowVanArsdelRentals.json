@@ -1,0 +1,44 @@
+{
+	"name": "DataflowVanArsdelRentals",
+	"properties": {
+		"folder": {
+			"name": "VanArsdel"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Transactions"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Rentals"
+				}
+			],
+			"transformations": [
+				{
+					"name": "Assert1"
+				},
+				{
+					"name": "AddDataSourceId"
+				},
+				{
+					"name": "FilterErrors"
+				},
+				{
+					"name": "FlagErrorRows"
+				}
+			],
+			"script": "source(output(\n\t\tTransactionID as string,\n\t\tCustomerID as string,\n\t\tMovieID as string,\n\t\tRentalDate as integer,\n\t\tReturnDate as integer,\n\t\tRentalCost as decimal(19,4),\n\t\tLateFee as decimal(19,4),\n\t\tRewindFlag as boolean,\n\t\tCreatedDate as date,\n\t\tUpdatedDate as date\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'parquet',\n\tfileSystem: 'bronze',\n\tfolderPath: 'VanArsdel',\n\tfileName: 'dbo_Transactions.parquet') ~> Transactions\nTransactions assert(expectTrue(!isNull(toDate(RentalDate, 'yyyyMMdd')), false, 'RentalDate'),\n\texpectTrue(!isNull(toDate(ReturnDate, 'yyyyMMdd')), false, 'ReturnDate')) ~> Assert1\nFilterErrors derive(DataSourceId = 2,\n\t\tNewRentalDate = toDate(RentalDate, 'yyyyMMdd'),\n\t\tNewReturnDate = toDate(ReturnDate, 'yyyyMMdd'),\n\t\tNewRentalCost = toDecimal(RentalCost, 5, 2),\n\t\tNewLateFee = toDecimal(LateFee, 5, 2)) ~> AddDataSourceId\nFlagErrorRows filter(IsErrorRow == false()) ~> FilterErrors\nAssert1 derive(IsErrorRow = isError()) ~> FlagErrorRows\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tfileSystem: 'silver',\n\tfolderPath: 'Rentals',\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tTransactionId = TransactionID,\n\t\tCustomerId = CustomerID,\n\t\tMovieId = MovieID,\n\t\tRentalDate = NewRentalDate,\n\t\tReturnDate = NewReturnDate,\n\t\tRentalCost = NewRentalCost,\n\t\tLateFee = NewLateFee,\n\t\tRewindFlag,\n\t\tCreatedDate,\n\t\tUpdatedDate,\n\t\tDataSourceId\n\t)) ~> Rentals"
+		}
+	}
+}

@@ -1,0 +1,22 @@
+{
+	"name": "SouthridgeLakeDB",
+	"properties": {
+		"Origin": {
+			"Type": "SPARK"
+		},
+		"Properties": {
+			"IsSyMSCDMDatabase": true
+		},
+		"Name": "SouthridgeLakeDB",
+		"EntityType": "DATABASE",
+		"Source": {
+			"Provider": "ADLS",
+			"Location": "abfss://silver@southridgedatalake01.dfs.core.windows.net/",
+			"Properties": {
+				"FormatType": "parquet",
+				"LinkedServiceName": "southridgeanalyticshub-WorkspaceDefaultStorage"
+			}
+		}
+	},
+	"type": "DATABASE"
+}

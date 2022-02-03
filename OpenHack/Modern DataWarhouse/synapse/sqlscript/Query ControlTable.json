@@ -1,0 +1,20 @@
+{
+	"name": "Query ControlTable",
+	"properties": {
+		"folder": {
+			"name": "Data Loading"
+		},
+		"content": {
+			"query": "SELECT TOP (100) \n    [Id]\n    ,[SourceObjectSettings]\n    ,[SourceConnectionSettingsName]\n    ,[CopySourceSettings]\n    ,[SinkObjectSettings]\n    ,[SinkConnectionSettingsName]\n    ,[CopySinkSettings]\n    ,[CopyActivitySettings]\n    ,[TopLevelPipelineName]\n    ,[TriggerName]\n    ,[DataLoadingBehaviorSettings]\n    ,[TaskId]\n    ,[CopyEnabled]\n FROM [dbo].[ControlTable]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Metadatabase",
+				"poolName": "Metadatabase"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

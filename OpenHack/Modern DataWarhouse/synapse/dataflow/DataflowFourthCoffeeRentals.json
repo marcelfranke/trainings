@@ -1,0 +1,35 @@
+{
+	"name": "DataflowFourthCoffeeRentals",
+	"properties": {
+		"folder": {
+			"name": "FourthCoffee"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Transactions"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Rentals"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AddDataSourceId"
+				}
+			],
+			"script": "source(output(\n\t\tTransactionID as string,\n\t\tCustomerID as string,\n\t\tMovieID as string,\n\t\tRentalDate as date 'yyyyMMdd',\n\t\tReturnDate as date 'yyyyMMdd',\n\t\tRentalCost as decimal(3,2),\n\t\tLateFee as decimal(10,0),\n\t\tRewindFlag as boolean,\n\t\tCreatedDate as date 'yyyy-MM-dd',\n\t\tUpdatedDate as date 'yyyy-MM-dd'\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'delimited',\n\tfileSystem: 'bronze',\n\tfolderPath: 'FourthCoffee/Rentals',\n\tfileName: 'Transactions.csv',\n\tcolumnDelimiter: ',',\n\tescapeChar: '\\\\',\n\tquoteChar: '\\\"',\n\tcolumnNamesAsHeader: true) ~> Transactions\nTransactions derive(DataSourceId = 3,\n\t\tNewRentalCost = toDecimal(RentalCost, 5, 2),\n\t\tNewLateFee = toDecimal(LateFee, 5, 2)) ~> AddDataSourceId\nAddDataSourceId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'Rentals',\n\ttruncate:true,\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tTransactionId = TransactionID,\n\t\tCustomerId = CustomerID,\n\t\tMovieId = MovieID,\n\t\tRentalDate,\n\t\tReturnDate,\n\t\tRentalCost = NewRentalCost,\n\t\tLateFee = NewLateFee,\n\t\tRewindFlag,\n\t\tCreatedDate,\n\t\tUpdatedDate,\n\t\tDataSourceId\n\t)) ~> Rentals"
+		}
+	}
+}

@@ -1,0 +1,44 @@
+{
+	"name": "DataflowSouthridgeActors",
+	"properties": {
+		"folder": {
+			"name": "Southridge"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "SouthridgeMoviews"
+				}
+			],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Actors"
+				}
+			],
+			"transformations": [
+				{
+					"name": "FlattenActors"
+				},
+				{
+					"name": "GroupActors"
+				},
+				{
+					"name": "SortActors"
+				},
+				{
+					"name": "GenerateActorId"
+				}
+			],
+			"script": "source(output(\n\t\tactors as (name as string)[],\n\t\tavailabilityDate as string,\n\t\tgenre as string,\n\t\tid as string,\n\t\trating as string,\n\t\treleaseYear as integer,\n\t\truntime as integer,\n\t\tstreamingAvailabilityDate as string,\n\t\ttier as integer,\n\t\ttitle as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\tformat: 'json',\n\tfileSystem: 'bronze',\n\tfolderPath: 'Movies',\n\tfileName: 'movies.json',\n\tdocumentForm: 'documentPerLine') ~> SouthridgeMoviews\nSouthridgeMoviews foldDown(unroll(actors, actors),\n\tmapColumn(\n\t\tactor = actors\n\t),\n\tskipDuplicateMapInputs: false,\n\tskipDuplicateMapOutputs: false) ~> FlattenActors\nFlattenActors aggregate(groupBy(actor),\n\tSumRanking = sum(1)) ~> GroupActors\nGroupActors sort(asc(actor, true)) ~> SortActors\nSortActors derive(ActorId = uuid(),\n\t\tDataSourceId = 1) ~> GenerateActorId\nGenerateActorId sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tformat: 'delta',\n\tcompressionType: 'snappy',\n\tcompressionLevel: 'Fastest',\n\tfileSystem: 'silver',\n\tfolderPath: 'Actors',\n\ttruncate:true,\n\tmergeSchema: false,\n\tautoCompact: true,\n\toptimizedWrite: true,\n\tvacuum: 0,\n\tdeletable:false,\n\tinsertable:true,\n\tupdateable:false,\n\tupsertable:false,\n\tumask: 0022,\n\tpreCommands: [],\n\tpostCommands: [],\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tmapColumn(\n\t\tActorId,\n\t\tName = actor.name,\n\t\tDataSourceId\n\t)) ~> Actors"
+		}
+	}
+}

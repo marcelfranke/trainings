@@ -1,0 +1,188 @@
+{
+	"name": "Master Pipeline Sources to Bronze",
+	"properties": {
+		"activities": [
+			{
+				"name": "Load CloudSales",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_CloudSales_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"MaxNumberOfObjectsReturnedFromLookupActivity": {
+							"value": "@pipeline().parameters.NumberOfObjectsReturnedFromLookupActivity",
+							"type": "Expression"
+						},
+						"MaxNumberOfConcurrentTasks": {
+							"value": "@pipeline().parameters.NumberOfConcurrentTasks",
+							"type": "Expression"
+						},
+						"MainControlTableName": {
+							"value": "@pipeline().parameters.ControlTableName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Load CloudStreaming",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Load CloudSales",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_CloudStreaming_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"MaxNumberOfObjectsReturnedFromLookupActivity": {
+							"value": "@pipeline().parameters.NumberOfObjectsReturnedFromLookupActivity",
+							"type": "Expression"
+						},
+						"MaxNumberOfConcurrentTasks": {
+							"value": "@pipeline().parameters.NumberOfConcurrentTasks",
+							"type": "Expression"
+						},
+						"MainControlTableName": {
+							"value": "@pipeline().parameters.ControlTableName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Load Catalog",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Load CloudStreaming",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_SouthridgeCatalog_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"MaxNumberOfObjectsReturnedFromLookupActivity": {
+							"value": "@pipeline().parameters.NumberOfObjectsReturnedFromLookupActivity",
+							"type": "Expression"
+						},
+						"MaxNumberOfConcurrentTasks": {
+							"value": "@pipeline().parameters.NumberOfConcurrentTasks",
+							"type": "Expression"
+						},
+						"MainControlTableName": {
+							"value": "@pipeline().parameters.ControlTableName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Load VanArsdel",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Load Catalog",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_VanArsdel_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"MaxNumberOfObjectsReturnedFromLookupActivity": {
+							"value": "@pipeline().parameters.NumberOfObjectsReturnedFromLookupActivity",
+							"type": "Expression"
+						},
+						"MaxNumberOfConcurrentTasks": {
+							"value": "@pipeline().parameters.NumberOfConcurrentTasks",
+							"type": "Expression"
+						},
+						"MainControlTableName": {
+							"value": "@pipeline().parameters.ControlTableName",
+							"type": "Expression"
+						}
+					}
+				}
+			},
+			{
+				"name": "Load FourthCoffee",
+				"type": "ExecutePipeline",
+				"dependsOn": [
+					{
+						"activity": "Load VanArsdel",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "MetadataDrivenCopyTask_FourthCoffee_TopLevel",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true,
+					"parameters": {
+						"MaxNumberOfObjectsReturnedFromLookupActivity": {
+							"value": "@pipeline().parameters.NumberOfObjectsReturnedFromLookupActivity",
+							"type": "Expression"
+						},
+						"MaxNumberOfConcurrentTasks": {
+							"value": "@pipeline().parameters.NumberOfConcurrentTasks",
+							"type": "Expression"
+						},
+						"MainControlTableName": {
+							"value": "@pipeline().parameters.ControlTableName",
+							"type": "Expression"
+						}
+					}
+				}
+			}
+		],
+		"parameters": {
+			"ControlTableName": {
+				"type": "string",
+				"defaultValue": "dbo.ControlTable"
+			},
+			"NumberOfConcurrentTasks": {
+				"type": "int",
+				"defaultValue": 20
+			},
+			"NumberOfObjectsReturnedFromLookupActivity": {
+				"type": "int",
+				"defaultValue": 5000
+			}
+		},
+		"folder": {
+			"name": "Bronze Layer"
+		},
+		"annotations": []
+	}
+}
