@@ -54,7 +54,7 @@
 												],
 												"typeProperties": {
 													"source": {
-														"type": "DelimitedTextSource",
+														"type": "BinarySource",
 														"storeSettings": {
 															"type": "FileServerReadSettings",
 															"recursive": {
@@ -64,65 +64,34 @@
 															"wildcardFileName": {
 																"value": "@json(item().CopySourceSettings).wildcardFileName",
 																"type": "Expression"
-															},
-															"enablePartitionDiscovery": {
-																"value": "@json(item().CopySourceSettings).enablePartitionDiscovery",
-																"type": "Expression"
 															}
 														},
 														"formatSettings": {
-															"type": "DelimitedTextReadSettings",
-															"skipLineCount": {
-																"value": "@json(item().CopySourceSettings).skipLineCount",
-																"type": "Expression"
-															}
+															"type": "BinaryReadSettings"
 														}
 													},
 													"sink": {
-														"type": "DelimitedTextSink",
+														"type": "BinarySink",
 														"storeSettings": {
 															"type": "AzureBlobFSWriteSettings"
-														},
-														"formatSettings": {
-															"type": "DelimitedTextWriteSettings",
-															"quoteAllText": {
-																"value": "@json(item().CopySinkSettings).quoteAllText",
-																"type": "Expression"
-															},
-															"fileExtension": {
-																"value": "@json(item().CopySinkSettings).fileExtension",
-																"type": "Expression"
-															}
 														}
 													},
 													"enableStaging": false,
-													"validateDataConsistency": false,
-													"translator": {
-														"value": "@json(item().CopyActivitySettings).translator",
+													"enableSkipIncompatibleRow": {
+														"value": "@json(item().CopyActivitySettings).enableSkipIncompatibleRow",
 														"type": "Expression"
-													}
+													},
+													"skipErrorFile": {
+														"type": "Expression",
+														"value": "@json(item().CopyActivitySettings).skipErrorFile"
+													},
+													"validateDataConsistency": false
 												},
 												"inputs": [
 													{
 														"referenceName": "MetadataDrivenCopyTask_FourthCoffee_SourceDS",
 														"type": "DatasetReference",
 														"parameters": {
-															"cw_columnDelimiter": {
-																"value": "@json(item().SourceObjectSettings).columnDelimiter",
-																"type": "Expression"
-															},
-															"cw_escapeChar": {
-																"value": "@json(item().SourceObjectSettings).escapeChar",
-																"type": "Expression"
-															},
-															"cw_quoteChar": {
-																"value": "@json(item().SourceObjectSettings).quoteChar",
-																"type": "Expression"
-															},
-															"cw_firstRowAsHeader": {
-																"value": "@json(item().SourceObjectSettings).firstRowAsHeader",
-																"type": "Expression"
-															},
 															"cw_fileName": {
 																"value": "@json(item().SourceObjectSettings).fileName",
 																"type": "Expression"
@@ -139,18 +108,6 @@
 														"referenceName": "MetadataDrivenCopyTask_FourthCoffee_DestinationDS",
 														"type": "DatasetReference",
 														"parameters": {
-															"cw_columnDelimiter": {
-																"value": "@json(item().SinkObjectSettings).columnDelimiter",
-																"type": "Expression"
-															},
-															"cw_escapeChar": {
-																"value": "@json(item().SinkObjectSettings).escapeChar",
-																"type": "Expression"
-															},
-															"cw_quoteChar": {
-																"value": "@json(item().SinkObjectSettings).quoteChar",
-																"type": "Expression"
-															},
 															"cw_fileName": {
 																"value": "@json(item().SinkObjectSettings).fileName",
 																"type": "Expression"
@@ -195,7 +152,7 @@
 										],
 										"typeProperties": {
 											"source": {
-												"type": "DelimitedTextSource",
+												"type": "BinarySource",
 												"storeSettings": {
 													"type": "FileServerReadSettings",
 													"recursive": {
@@ -205,65 +162,34 @@
 													"wildcardFileName": {
 														"value": "@json(item().CopySourceSettings).wildcardFileName",
 														"type": "Expression"
-													},
-													"enablePartitionDiscovery": {
-														"value": "@json(item().CopySourceSettings).enablePartitionDiscovery",
-														"type": "Expression"
 													}
 												},
 												"formatSettings": {
-													"type": "DelimitedTextReadSettings",
-													"skipLineCount": {
-														"value": "@json(item().CopySourceSettings).skipLineCount",
-														"type": "Expression"
-													}
+													"type": "BinaryReadSettings"
 												}
 											},
 											"sink": {
-												"type": "DelimitedTextSink",
+												"type": "BinarySink",
 												"storeSettings": {
 													"type": "AzureBlobFSWriteSettings"
-												},
-												"formatSettings": {
-													"type": "DelimitedTextWriteSettings",
-													"quoteAllText": {
-														"value": "@json(item().CopySinkSettings).quoteAllText",
-														"type": "Expression"
-													},
-													"fileExtension": {
-														"value": "@json(item().CopySinkSettings).fileExtension",
-														"type": "Expression"
-													}
 												}
 											},
 											"enableStaging": false,
-											"validateDataConsistency": false,
-											"translator": {
-												"value": "@json(item().CopyActivitySettings).translator",
+											"enableSkipIncompatibleRow": {
+												"value": "@json(item().CopyActivitySettings).enableSkipIncompatibleRow",
 												"type": "Expression"
-											}
+											},
+											"skipErrorFile": {
+												"type": "Expression",
+												"value": "@json(item().CopyActivitySettings).skipErrorFile"
+											},
+											"validateDataConsistency": false
 										},
 										"inputs": [
 											{
 												"referenceName": "MetadataDrivenCopyTask_FourthCoffee_SourceDS",
 												"type": "DatasetReference",
 												"parameters": {
-													"cw_columnDelimiter": {
-														"value": "@json(item().SourceObjectSettings).columnDelimiter",
-														"type": "Expression"
-													},
-													"cw_escapeChar": {
-														"value": "@json(item().SourceObjectSettings).escapeChar",
-														"type": "Expression"
-													},
-													"cw_quoteChar": {
-														"value": "@json(item().SourceObjectSettings).quoteChar",
-														"type": "Expression"
-													},
-													"cw_firstRowAsHeader": {
-														"value": "@json(item().SourceObjectSettings).firstRowAsHeader",
-														"type": "Expression"
-													},
 													"cw_fileName": {
 														"value": "@json(item().SourceObjectSettings).fileName",
 														"type": "Expression"
@@ -280,18 +206,6 @@
 												"referenceName": "MetadataDrivenCopyTask_FourthCoffee_DestinationDS",
 												"type": "DatasetReference",
 												"parameters": {
-													"cw_columnDelimiter": {
-														"value": "@json(item().SinkObjectSettings).columnDelimiter",
-														"type": "Expression"
-													},
-													"cw_escapeChar": {
-														"value": "@json(item().SinkObjectSettings).escapeChar",
-														"type": "Expression"
-													},
-													"cw_quoteChar": {
-														"value": "@json(item().SinkObjectSettings).quoteChar",
-														"type": "Expression"
-													},
 													"cw_fileName": {
 														"value": "@json(item().SinkObjectSettings).fileName",
 														"type": "Expression"

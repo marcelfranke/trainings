@@ -6,15 +6,6 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"cw_columnDelimiter": {
-				"type": "String"
-			},
-			"cw_escapeChar": {
-				"type": "String"
-			},
-			"cw_quoteChar": {
-				"type": "String"
-			},
 			"cw_fileName": {
 				"type": "Object"
 			},
@@ -29,7 +20,7 @@
 			"name": "FourthCoffee"
 		},
 		"annotations": [],
-		"type": "DelimitedText",
+		"type": "Binary",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
@@ -45,20 +36,7 @@
 					"value": "@dataset().cw_fileSystem",
 					"type": "Expression"
 				}
-			},
-			"columnDelimiter": {
-				"value": "@dataset().cw_columnDelimiter",
-				"type": "Expression"
-			},
-			"escapeChar": {
-				"value": "@dataset().cw_escapeChar",
-				"type": "Expression"
-			},
-			"quoteChar": {
-				"value": "@dataset().cw_quoteChar",
-				"type": "Expression"
 			}
-		},
-		"schema": []
+		}
 	}
 }

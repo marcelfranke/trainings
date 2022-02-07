@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 5",
+	"properties": {
+		"content": {
+			"query": "-- This is auto-generated code\nSELECT\n    count(*)\nFROM\n    OPENROWSET(\n        BULK 'https://southridgedatalake01.dfs.core.windows.net/bronze/CloudSales/dbo_Customers.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nwhere CustomerID = '0141920b-f63d-47a7-9794-3deef6d4fdcc'\n\nSELECT\n    count(*)\nFROM\n    OPENROWSET(\n        BULK 'https://southridgedatalake01.dfs.core.windows.net/bronze/CloudStreaming/dbo_Customers.parquet',\n        FORMAT = 'PARQUET'\n    ) AS [result]\nwhere CustomerID = '0141920b-f63d-47a7-9794-3deef6d4fdcc'\n\n\nSELECT\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/Customers',\n        FORMAT = 'DELTA'\n    ) AS [result]\nwhere CustomerID = '0141920b-f63d-47a7-9794-3deef6d4fdcc'\n\nSELECT TOP 10\n    *\nFROM\n    OPENROWSET(\n        BULK 'https://southridgedatalake01.dfs.core.windows.net/silver/DVDSales',\n        FORMAT = 'DELTA'\n    ) AS [result]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

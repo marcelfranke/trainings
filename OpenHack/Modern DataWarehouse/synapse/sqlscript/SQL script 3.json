@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 3",
+	"properties": {
+		"content": {
+			"query": "SELECT top 100\n    ROW_NUMBER() OVER (ORDER BY c.CustomerID, c.DataSourceId desc) as CustomerSK,\n    c.CustomerID,\n    c.LastName,\n    c.FirstName,\n    a.AddressLine1,\n    a.AddressLine2,\n    a.City,\n    a.State,\n    a.ZipCode,\n    c.PhoneNumber,\n    c.CreatedDate as RecordStartDate,\n    c.UpdatedDate as RecordEndDate\n    \nFROM dbo.Customers c\nLEFT JOIN dbo.Addresses a on c.CustomerID = a.CustomerID\n    and c.DataSourceId = a.DataSourceId\norder by c.customerid\n\n\nSELECT c.CustomerID,\n    count(*) c\n    \nFROM dbo.Customers c\nLEFT JOIN dbo.Addresses a on c.CustomerID = a.CustomerID\n    and c.DataSourceId = a.DataSourceId\ngroup by c.customerid\norder by c desc",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -2,7 +2,7 @@
 	"name": "TriggerSourceSystemsToBronze",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "Master Pipeline Sources to Bronze",

@@ -1,0 +1,20 @@
+{
+	"name": "PurviewPermissions",
+	"properties": {
+		"folder": {
+			"name": "Purview"
+		},
+		"content": {
+			"query": "CREATE LOGIN [pvSouthridgeDataCatalog] FROM EXTERNAL PROVIDER;\n\nCREATE USER [pvSouthridgeDataCatalog] FOR LOGIN [pvSouthridgeDataCatalog];\nALTER ROLE db_datareader ADD MEMBER [pvSouthridgeDataCatalog];\n\n--GRANT REFERENCES ON DATABASE SCOPED CREDENTIAL::[scoped_credential] TO [PurviewAccountName];",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
