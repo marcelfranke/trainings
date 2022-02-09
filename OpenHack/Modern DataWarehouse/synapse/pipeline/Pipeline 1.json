@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "DataflowSouthridgeDVDSales",
+						"referenceName": "DataflowFourthCoffeeCustomers",
 						"type": "DataFlowReference"
 					},
 					"compute": {
