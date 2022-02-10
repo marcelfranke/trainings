@@ -1,0 +1,20 @@
+{
+	"name": "Populate Date Table",
+	"properties": {
+		"folder": {
+			"name": "Star Schema"
+		},
+		"content": {
+			"query": "INSERT INTO dbo.DimDate\n(DateSK, DateValue, DateYear, DateMonth, DateDay, DateDayOfWeek, DateDayOfYear, DateWeekOfYear)\nSELECT \n\tNumber AS DateSK,\n\tDateValue, \n\tYEAR(DateValue) AS DateYear,\n\tMONTH(DateValue) AS DateMonth,\n\tDAY(DateValue) AS DateDay,\n\tDATEPART(WeekDay, DateValue) AS DateDayOfWeek,\n\tDATEPART(DayOfYear, DateValue) AS DateDayOfYear,\n\tDATEPART(Week, DateValue) AS DateWeekOfYear\nFROM\n(\n\tSELECT Number, DATEADD(d, Number - 1, '2017-01-01') AS DateValue\n\tFROM\n\t(\n\t\tSELECT Number\n\t\tFROM dbo.Numbers\n\t\tWHERE Number <= 365\n\t) AS N\n) AS D;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Metadatabase",
+				"poolName": "Metadatabase"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
