@@ -1,0 +1,17 @@
+{
+	"name": "Create Date",
+	"properties": {
+		"content": {
+			"query": "CREATE EXTERNAL TABLE DimDate (\n\t[DateSK] int,\n\t[DateValue] date,\n\t[DateYear] smallint,\n\t[DateMonth] int,\n\t[DateDay] int,\n\t[DateDayOfWeek] int,\n\t[DateDayOfYear] smallint,\n\t[DateWeekOfYear] int\n\t)\n\tWITH (\n\tLOCATION = 'Date/',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.DimDate\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
