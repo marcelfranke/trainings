@@ -5,7 +5,7 @@
 			"name": "SQL Serverless"
 		},
 		"content": {
-			"query": "DROP EXTERNAL TABLE OnlineMovieMappings\nCREATE EXTERNAL TABLE OnlineMovieMappings (\n\t[MovieId] nvarchar(256),\n\t[OnlineMovieId] nvarchar(256),\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'OnlineMovieMappings',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.OnlineMovieMappings\nGO",
+			"query": "DROP EXTERNAL TABLE extOnlineMovieMappings\nCREATE EXTERNAL TABLE extOnlineMovieMappings (\n\t[MovieId] nvarchar(256),\n\t[OnlineMovieId] nvarchar(256),\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'OnlineMovieMappings',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseParquetFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.extOnlineMovieMappings\nGO",
 			"metadata": {
 				"language": "sql"
 			},
