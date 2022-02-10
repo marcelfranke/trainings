@@ -1,0 +1,71 @@
+{
+	"name": "Dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"linkedService": {
+						"referenceName": "SynapseMetadatabase",
+						"type": "LinkedServiceReference"
+					},
+					"name": "DateTable"
+				},
+				{
+					"linkedService": {
+						"referenceName": "SynapseMetadatabase",
+						"type": "LinkedServiceReference"
+					},
+					"name": "TimeTable"
+				},
+				{
+					"linkedService": {
+						"referenceName": "SynapseMetadatabase",
+						"type": "LinkedServiceReference"
+					},
+					"name": "NumberTable"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'DimDate',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> DateTable",
+				"source(output(",
+				"          TimeSK as integer,",
+				"          TimeValue as timestamp,",
+				"          TimeHour as integer,",
+				"          TimeMinute as integer,",
+				"          TimeSecond as integer,",
+				"          TimeMinuteOfDay as short,",
+				"          TimeSecondOfDay as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'DimTime',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> TimeTable",
+				"source(output(",
+				"          Number as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'table',",
+				"     store: 'synapseanalytics',",
+				"     schemaName: 'dbo',",
+				"     tableName: 'Numbers',",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     staged: true) ~> NumberTable"
+			]
+		}
+	}
+}
