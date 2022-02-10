@@ -1,0 +1,20 @@
+{
+	"name": "Create Additional Tables",
+	"properties": {
+		"folder": {
+			"name": "Star Schema"
+		},
+		"content": {
+			"query": "CREATE TABLE [dbo].[DimDate] (\n    [DateSK]         INT      NOT NULL,\n    [DateValue]      DATE     NOT NULL,\n    [DateYear]       SMALLINT NOT NULL,\n    [DateMonth]      TINYINT  NOT NULL,\n    [DateDay]        TINYINT  NOT NULL,\n    [DateDayOfWeek]  TINYINT  NOT NULL,\n    [DateDayOfYear]  SMALLINT NOT NULL,\n    [DateWeekOfYear] TINYINT  NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[Numbers] (\n    [Number] INT NOT NULL\n)\nWITH (CLUSTERED COLUMNSTORE INDEX, DISTRIBUTION = REPLICATE);\n\nCREATE TABLE [dbo].[DimTime] (\n    [TimeSK]          INT      NOT NULL,\n    [TimeValue]       TIME (7) NOT NULL,\n    [TimeHour]        TINYINT  NOT NULL,\n    [TimeMinute]      TINYINT  NOT NULL,\n    [TimeSecond]      TINYINT  NOT NULL,\n    [TimeMinuteOfDay] SMALLINT NOT NULL,\n    [TimeSecondOfDay] INT      NOT NULL\n)\nWITH (HEAP, DISTRIBUTION = REPLICATE);\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Metadatabase",
+				"poolName": "Metadatabase"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
