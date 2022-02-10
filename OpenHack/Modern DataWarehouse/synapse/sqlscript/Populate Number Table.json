@@ -1,0 +1,20 @@
+{
+	"name": "Populate Number Table",
+	"properties": {
+		"folder": {
+			"name": "Star Schema"
+		},
+		"content": {
+			"query": "-- Declare local variables...\nDECLARE\n\t@MaxNumber integer = 1;\n\n-- Insert the seed number...\nINSERT INTO dbo.Numbers\n(Number)\nVALUES\n(1);\n\nDECLARE\n\t@MaxNumber integer = 1;\n    \n-- Loop through and insert additional data up to 1,048,576...\nWHILE (@MaxNumber < 1000000)\nBEGIN\n\tINSERT INTO dbo.Numbers\n\t(Number)\n\tSELECT Number + @MaxNumber\n\tFROM dbo.Numbers;\n\n\tSELECT @MaxNumber = MAX(Number)\n\tFROM dbo.Numbers;\nEND",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Metadatabase",
+				"poolName": "Metadatabase"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
