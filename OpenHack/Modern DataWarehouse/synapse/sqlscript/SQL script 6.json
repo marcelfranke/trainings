@@ -1,0 +1,20 @@
+{
+	"name": "SQL script 6",
+	"properties": {
+		"folder": {
+			"name": "Star Schema"
+		},
+		"content": {
+			"query": "SELECT top 100\n    ROW_NUMBER() OVER (ORDER BY TransactionId asc) as RentalSK,\n    [TransactionId]\n    ,[CustomerId]\n    ,[MovieId]\n    ,[RentalDate]\n    ,[RentalCost]\n    ,[LateFee]\n    ,[RewindFlag]\n    ,[CreatedDate]\n    ,[UpdatedDate]\n    ,[DataSourceId]\nFROM [dbo].[Rentals]",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "Southridge",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
