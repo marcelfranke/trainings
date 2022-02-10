@@ -5,7 +5,7 @@
 			"name": "SQL Serverless"
 		},
 		"content": {
-			"query": "CREATE EXTERNAL TABLE Numbers (\n\t[Number] int\n\t)\n\tWITH (\n\tLOCATION = 'Numbers',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Numbers\nGO",
+			"query": "DROP EXTERNAL TABLE extNumbers;\nCREATE EXTERNAL TABLE extNumbers (\n\t[Number] int\n\t)\n\tWITH (\n\tLOCATION = 'Numbers',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.extNumbers\nGO",
 			"metadata": {
 				"language": "sql"
 			},
