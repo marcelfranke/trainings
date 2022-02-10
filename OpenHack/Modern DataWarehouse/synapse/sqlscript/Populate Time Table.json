@@ -1,0 +1,20 @@
+{
+	"name": "Populate Time Table",
+	"properties": {
+		"folder": {
+			"name": "Star Schema"
+		},
+		"content": {
+			"query": "INSERT INTO dbo.DimTime\n(TimeSK, TimeValue, TimeHour, TimeMinute, TimeSecond, TimeMinuteOfDay, TimeSecondOfDay)\nSELECT\n\tNumber AS TimeSK,\n\tTimeValue,\n\tDATEPART(HOUR, TimeValue) AS TimeHour,\n\tDATEPART(MINUTE, TimeValue) AS TimeMinute,\n\tDATEPART(SECOND, TimeValue) AS TimeSecond,\n\tDATEPART(MINUTE, TimeValue) + (DATEPART(HOUR, TimeValue) * 60) AS TimeMinuteOfDay,\n\tDATEPART(SECOND, TimeValue) + ((DATEPART(MINUTE, TimeValue) + (DATEPART(HOUR, TimeValue) * 60)) * 60) AS TimeSecondOfDay\nFROM\n(\n\tSELECT Number, CAST(DATEADD(s, Number - 1, '2017-01-01') as time(7)) AS TimeValue\n\tFROM dbo.Numbers\n\tWHERE Number <= 86400\n) AS T;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
