@@ -5,7 +5,7 @@
 			"name": "SQL Serverless"
 		},
 		"content": {
-			"query": "DROP EXTERNAL TABLE Streaming\nCREATE EXTERNAL TABLE Streaming (\n\t[TransactionId] nvarchar(256),\n\t[CustomerId] nvarchar(256),\n\t[MovieId] nvarchar(256),\n\t[StreamStart] datetime2(7),\n\t[StreamEnd] datetime2(7),\n\t[CreatedDate] date,\n\t[UpdatedDate] date,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Streaming',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Streaming\nGO",
+			"query": "DROP EXTERNAL TABLE extStreaming;\nCREATE EXTERNAL TABLE extStreaming (\n\t[TransactionId] nvarchar(256),\n\t[CustomerId] nvarchar(256),\n\t[MovieId] nvarchar(256),\n\t[StreamStart] datetime2(7),\n\t[StreamEnd] datetime2(7),\n\t[CreatedDate] date,\n\t[UpdatedDate] date,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Streaming',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.extStreaming\nGO",
 			"metadata": {
 				"language": "sql"
 			},
