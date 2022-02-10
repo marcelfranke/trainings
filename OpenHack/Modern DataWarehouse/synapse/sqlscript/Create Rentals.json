@@ -5,7 +5,7 @@
 			"name": "SQL Serverless"
 		},
 		"content": {
-			"query": "DROP EXTERNAL TABLE Rentals \nCREATE EXTERNAL TABLE Rentals (\n\t[TransactionId] nvarchar(256),\n\t[CustomerId] nvarchar(256),\n\t[MovieId] nvarchar(256),\n\t[RentalDate] date,\n\t[RentalCost] numeric(5,2),\n\t[LateFee] numeric(5,2),\n\t[RewindFlag] bit,\n\t[CreatedDate] date,\n\t[UpdatedDate] date,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Rentals',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Rentals\nGO",
+			"query": "DROP EXTERNAL TABLE Rentals \nCREATE EXTERNAL TABLE Rentals (\n\t[TransactionId] nvarchar(256),\n\t[CustomerId] nvarchar(256),\n\t[MovieId] nvarchar(256),\n\t[RentalDate] date,\n\t[ReturnDate] date,\n\t[RentalCost] numeric(5,2),\n\t[LateFee] numeric(5,2),\n\t[RewindFlag] bit,\n\t[CreatedDate] date,\n\t[UpdatedDate] date,\n\t[DataSourceId] int\n\t)\n\tWITH (\n\tLOCATION = 'Rentals',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.Rentals\nGO",
 			"metadata": {
 				"language": "sql"
 			},
