@@ -1,6 +1,9 @@
 {
 	"name": "Create Time",
 	"properties": {
+		"folder": {
+			"name": "SQL Serverless"
+		},
 		"content": {
 			"query": "CREATE EXTERNAL TABLE DimTime (\n\t[TimeSK] int,\n\t[TimeValue] datetime2(7),\n\t[TimeHour] int,\n\t[TimeMinute] int,\n\t[TimeSecond] int,\n\t[TimeMinuteOfDay] smallint,\n\t[TimeSecondOfDay] int\n\t)\n\tWITH (\n\tLOCATION = 'Time',\n\tDATA_SOURCE = [silver_southridgedatalake02_dfs_core_windows_net],\n\tFILE_FORMAT = [SynapseDeltaFormat]\n\t)\nGO\n\n\nSELECT TOP 100 * FROM dbo.DimTime\nGO",
 			"metadata": {
