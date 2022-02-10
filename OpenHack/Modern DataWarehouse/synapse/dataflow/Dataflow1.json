@@ -26,10 +26,42 @@
 					"name": "NumberTable"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Date"
+				},
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Time"
+				},
+				{
+					"linkedService": {
+						"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
+						"type": "LinkedServiceReference"
+					},
+					"name": "Numbers"
+				}
+			],
 			"transformations": [],
 			"scriptLines": [
-				"source(allowSchemaDrift: true,",
+				"source(output(",
+				"          DateSK as integer,",
+				"          DateValue as date,",
+				"          DateYear as short,",
+				"          DateMonth as integer,",
+				"          DateDay as integer,",
+				"          DateDayOfWeek as integer,",
+				"          DateDayOfYear as short,",
+				"          DateWeekOfYear as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'table',",
 				"     store: 'synapseanalytics',",
@@ -64,7 +96,70 @@
 				"     schemaName: 'dbo',",
 				"     tableName: 'Numbers',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     staged: true) ~> NumberTable"
+				"     staged: true) ~> NumberTable",
+				"DateTable sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     compressionType: 'snappy',",
+				"     compressionLevel: 'Fastest',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'Date',",
+				"     truncate:true,",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Date",
+				"TimeTable sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     compressionType: 'snappy',",
+				"     compressionLevel: 'Fastest',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'Time',",
+				"     truncate:true,",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Time",
+				"NumberTable sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     format: 'delta',",
+				"     compressionType: 'snappy',",
+				"     compressionLevel: 'Fastest',",
+				"     fileSystem: 'silver',",
+				"     folderPath: 'Numbers',",
+				"     truncate:true,",
+				"     mergeSchema: false,",
+				"     autoCompact: false,",
+				"     optimizedWrite: false,",
+				"     vacuum: 0,",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> Numbers"
 			]
 		}
 	}
