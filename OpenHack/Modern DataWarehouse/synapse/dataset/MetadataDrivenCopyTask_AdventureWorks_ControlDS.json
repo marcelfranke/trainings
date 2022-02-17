@@ -1,12 +1,12 @@
 {
-	"name": "MetadataDrivenCopyTask_6di_ControlDS",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_ControlDS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Metadatabase",
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_6di_20220217"
+			"name": "AdventureWorks"
 		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",

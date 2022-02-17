@@ -1,5 +1,5 @@
 {
-	"name": "MetadataDrivenCopyTask_6di_DestinationDS",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_DestinationDS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "southridgeanalyticshub-WorkspaceDefaultStorage",
@@ -17,7 +17,7 @@
 			}
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_6di_20220217"
+			"name": "AdventureWorks"
 		},
 		"annotations": [],
 		"type": "Parquet",

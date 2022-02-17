@@ -40,7 +40,7 @@
 									"partitionOption": "None"
 								},
 								"dataset": {
-									"referenceName": "MetadataDrivenCopyTask_6di_ControlDS",
+									"referenceName": "MetadataDrivenCopyTask_AdventureWorks_ControlDS",
 									"type": "DatasetReference"
 								},
 								"firstRowOnly": false

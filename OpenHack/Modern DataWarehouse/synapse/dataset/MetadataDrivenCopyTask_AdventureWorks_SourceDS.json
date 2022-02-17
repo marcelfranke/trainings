@@ -1,5 +1,5 @@
 {
-	"name": "MetadataDrivenCopyTask_6di_SourceDS",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_SourceDS",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AdventureWorks",
@@ -14,7 +14,7 @@
 			}
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_6di_20220217"
+			"name": "AdventureWorks"
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",

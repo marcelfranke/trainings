@@ -5,6 +5,9 @@
 			"referenceName": "Metadatabase",
 			"type": "LinkedServiceReference"
 		},
+		"folder": {
+			"name": "Helper Datasets"
+		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
 		"schema": [],
