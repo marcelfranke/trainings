@@ -5,24 +5,20 @@
 		"typeProperties": {
 			"sources": [
 				{
-					"linkedService": {
-						"referenceName": "SynapseMetadatabase",
-						"type": "LinkedServiceReference"
+					"dataset": {
+						"referenceName": "DateTable",
+						"type": "DatasetReference"
 					},
 					"name": "DateTable"
 				},
 				{
-					"linkedService": {
-						"referenceName": "SynapseMetadatabase",
-						"type": "LinkedServiceReference"
+					"dataset": {
+						"referenceName": "TimeTable",
+						"type": "DatasetReference"
 					},
 					"name": "TimeTable"
 				},
 				{
-					"linkedService": {
-						"referenceName": "SynapseMetadatabase",
-						"type": "LinkedServiceReference"
-					},
 					"name": "NumberTable"
 				}
 			],
@@ -54,49 +50,28 @@
 				"source(output(",
 				"          DateSK as integer,",
 				"          DateValue as date,",
-				"          DateYear as short,",
+				"          DateYear as integer,",
 				"          DateMonth as integer,",
 				"          DateDay as integer,",
 				"          DateDayOfWeek as integer,",
-				"          DateDayOfYear as short,",
+				"          DateDayOfYear as integer,",
 				"          DateWeekOfYear as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table',",
-				"     store: 'synapseanalytics',",
-				"     schemaName: 'dbo',",
-				"     tableName: 'DimDate',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
 				"     staged: true) ~> DateTable",
-				"source(output(",
-				"          TimeSK as integer,",
-				"          TimeValue as timestamp,",
-				"          TimeHour as integer,",
-				"          TimeMinute as integer,",
-				"          TimeSecond as integer,",
-				"          TimeMinuteOfDay as short,",
-				"          TimeSecondOfDay as integer",
-				"     ),",
-				"     allowSchemaDrift: true,",
+				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     format: 'table',",
-				"     store: 'synapseanalytics',",
-				"     schemaName: 'dbo',",
-				"     tableName: 'DimTime',",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
 				"     staged: true) ~> TimeTable",
 				"source(output(",
 				"          Number as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     format: 'table',",
-				"     store: 'synapseanalytics',",
-				"     schemaName: 'dbo',",
-				"     tableName: 'Numbers',",
-				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     staged: true) ~> NumberTable",
+				"     validateSchema: false) ~> NumberTable",
 				"DateTable sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delta',",

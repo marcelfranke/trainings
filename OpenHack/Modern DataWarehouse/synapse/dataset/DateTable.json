@@ -1,0 +1,56 @@
+{
+	"name": "DateTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Metadatabase",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [
+			{
+				"name": "DateSK",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "DateValue",
+				"type": "date"
+			},
+			{
+				"name": "DateYear",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "DateMonth",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "DateDay",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "DateDayOfWeek",
+				"type": "tinyint",
+				"precision": 3
+			},
+			{
+				"name": "DateDayOfYear",
+				"type": "smallint",
+				"precision": 5
+			},
+			{
+				"name": "DateWeekOfYear",
+				"type": "tinyint",
+				"precision": 3
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "DimDate"
+		}
+	}
+}

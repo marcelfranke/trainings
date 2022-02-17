@@ -341,10 +341,6 @@
 															"type": "String"
 														}
 													}
-												},
-												"linkedServiceName": {
-													"referenceName": "SynapseMetadatabase",
-													"type": "LinkedServiceReference"
 												}
 											}
 										]
