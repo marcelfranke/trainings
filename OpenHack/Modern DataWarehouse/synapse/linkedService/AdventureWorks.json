@@ -1,0 +1,22 @@
+{
+	"name": "AdventureWorks",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "Integrated Security=False;Encrypt=True;Connection Timeout=30;Data Source=southridgedbserver.database.windows.net;Initial Catalog=SouthridgeDB;User ID=sqladminuser",
+			"password": {
+				"type": "AzureKeyVaultSecret",
+				"store": {
+					"referenceName": "SouthridgeKeys",
+					"type": "LinkedServiceReference"
+				},
+				"secretName": "SouthridgeDBKey"
+			}
+		},
+		"connectVia": {
+			"referenceName": "AutoResolveIntegrationRuntime",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}
