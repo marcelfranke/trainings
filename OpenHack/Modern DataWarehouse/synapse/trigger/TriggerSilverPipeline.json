@@ -2,7 +2,7 @@
 	"name": "TriggerSilverPipeline",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Started",
+		"runtimeState": "Stopped",
 		"pipelines": [
 			{
 				"pipelineReference": {
