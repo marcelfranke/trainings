@@ -4489,6 +4489,36 @@
 			},
 			"dependsOn": [],
 			"location": "northeurope"
+		},
+		{
+			"name": "[concat(parameters('workspaceName'), '/TriggerSilverPipeline')]",
+			"type": "Microsoft.Synapse/workspaces/triggers",
+			"apiVersion": "2019-06-01-preview",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Started",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "Master Pipeline Bronze to Silver",
+							"type": "PipelineReference"
+						},
+						"parameters": {}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Hour",
+						"interval": 1,
+						"startTime": "2022-02-17T17:12:00Z",
+						"timeZone": "UTC"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('workspaceId'), '/pipelines/Master Pipeline Bronze to Silver')]"
+			]
 		}
 	]
 }
