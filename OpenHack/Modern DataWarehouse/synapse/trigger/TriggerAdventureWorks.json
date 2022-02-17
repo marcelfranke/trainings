@@ -2,7 +2,7 @@
 	"name": "TriggerAdventureWorks",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipeline": {
 			"pipelineReference": {
 				"referenceName": "MetadataDrivenCopyTask_AdventureWorks_TopLevel",
