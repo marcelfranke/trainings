@@ -1,0 +1,17 @@
+{
+	"name": "TriggerSilverPipeline",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Hour",
+				"interval": 1,
+				"startTime": "2022-02-17T17:12:00Z",
+				"timeZone": "UTC"
+			}
+		}
+	}
+}
