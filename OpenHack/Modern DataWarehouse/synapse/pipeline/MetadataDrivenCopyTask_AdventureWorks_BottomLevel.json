@@ -1,5 +1,5 @@
 {
-	"name": "MetadataDrivenCopyTask_6di_BottomLevel",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_BottomLevel",
 	"properties": {
 		"description": "This pipeline will copy objects from one group. The objects belonging to this group will be copied parallelly.",
 		"activities": [
@@ -471,7 +471,7 @@
 			}
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_6di_20220217"
+			"name": "Bronze Layer/AdventureWorks"
 		},
 		"annotations": []
 	}
