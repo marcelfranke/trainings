@@ -1,0 +1,19 @@
+{
+	"name": "MetadataDrivenCopyTask_0by_ControlDS",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "SynapseMetadatabase",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "MetadataDrivenCopyTask_0by_20220217"
+		},
+		"annotations": [],
+		"type": "AzureSqlDWTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "ControlTable"
+		}
+	}
+}
