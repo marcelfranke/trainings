@@ -14,10 +14,6 @@
 				},
 				"secretName": "CloudDBLogin"
 			}
-		},
-		"connectVia": {
-			"referenceName": "IntegrationRuntimeVanArsdel",
-			"type": "IntegrationRuntimeReference"
 		}
 	}
 }
