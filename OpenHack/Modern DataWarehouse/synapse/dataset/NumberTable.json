@@ -1,19 +1,22 @@
 {
-	"name": "MetadataDrivenCopyTask_0by_ControlDS",
+	"name": "NumberTable",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "Metadatabase",
 			"type": "LinkedServiceReference"
 		},
-		"folder": {
-			"name": "MetadataDrivenCopyTask_0by_20220217"
-		},
 		"annotations": [],
 		"type": "AzureSqlDWTable",
-		"schema": [],
+		"schema": [
+			{
+				"name": "Number",
+				"type": "int",
+				"precision": 10
+			}
+		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "ControlTable"
+			"table": "Numbers"
 		}
 	}
 }

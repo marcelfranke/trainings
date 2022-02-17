@@ -19,6 +19,10 @@
 					"name": "TimeTable"
 				},
 				{
+					"dataset": {
+						"referenceName": "NumberTable",
+						"type": "DatasetReference"
+					},
 					"name": "NumberTable"
 				}
 			],
@@ -71,7 +75,10 @@
 				"          Number as integer",
 				"     ),",
 				"     allowSchemaDrift: true,",
-				"     validateSchema: false) ~> NumberTable",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table',",
+				"     staged: true) ~> NumberTable",
 				"DateTable sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     format: 'delta',",
