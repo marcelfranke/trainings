@@ -1,5 +1,5 @@
 {
-	"name": "MetadataDrivenCopyTask_0by_TopLevel",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_TopLevel",
 	"properties": {
 		"description": "This pipeline will count the total number of objects (tables etc.) required to be copied in this run, come up with the number of sequential batches based on the max allowed concurrent copy task, and then execute another pipeline to copy different batches sequentially.",
 		"activities": [
@@ -59,7 +59,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "MetadataDrivenCopyTask_0by_MiddleLevel",
+									"referenceName": "MetadataDrivenCopyTask_AdventureWorks_MiddleLevel",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -114,7 +114,7 @@
 			}
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_0by_20220217"
+			"name": "Bronze Layer/AdventureWorks"
 		},
 		"annotations": [
 			"MetadataDrivenSolution"

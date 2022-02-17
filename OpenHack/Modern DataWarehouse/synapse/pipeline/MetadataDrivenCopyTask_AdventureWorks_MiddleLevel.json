@@ -1,5 +1,5 @@
 {
-	"name": "MetadataDrivenCopyTask_0by_MiddleLevel",
+	"name": "MetadataDrivenCopyTask_AdventureWorks_MiddleLevel",
 	"properties": {
 		"description": "This pipeline will copy one batch of objects. The objects belonging to this batch will be copied parallelly.",
 		"activities": [
@@ -61,7 +61,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "MetadataDrivenCopyTask_0by_BottomLevel",
+									"referenceName": "MetadataDrivenCopyTask_AdventureWorks_BottomLevel",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,
@@ -101,7 +101,7 @@
 			}
 		},
 		"folder": {
-			"name": "MetadataDrivenCopyTask_0by_20220217"
+			"name": "Bronze Layer/AdventureWorks"
 		},
 		"annotations": []
 	}
