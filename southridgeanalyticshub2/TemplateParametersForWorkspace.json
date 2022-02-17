@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"workspaceName": {
+			"value": "southridgeanalyticshub2"
+		},
+		"AdventureWorks_connectionString": {
+			"value": ""
+		},
+		"Metadatabase_connectionString": {
+			"value": ""
+		},
+		"SqlServerVanArsdel_connectionString": {
+			"value": ""
+		},
+		"southridgeanalyticshub-WorkspaceDefaultSqlServer_connectionString": {
+			"value": ""
+		},
+		"SouthridgeKeys_properties_typeProperties_baseUrl": {
+			"value": "https://SouthridgeKeyVault.vault.azure.net/"
+		},
+		"SqlServerVanArsdel_properties_typeProperties_userName": {
+			"value": "southridge"
+		},
+		"southridgeanalyticshub-WorkspaceDefaultStorage_properties_typeProperties_url": {
+			"value": "https://southridgedatalake02.dfs.core.windows.net"
+		}
+	}
+}
